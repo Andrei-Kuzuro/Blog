@@ -41,5 +41,3 @@ export const LogIn = () => {
     </div>
   );
 };
-
-// styles.login__after;

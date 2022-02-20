@@ -1,12 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
-import { IPostCard, Post } from "../Post/Post";
+import { Post } from "../Post/Post";
 import styles from "./AllPostList.module.css";
 import { Button } from "../Button/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { IState } from "../redux/store";
+import { addPosts } from "../redux/actions/postActions";
+import { IPostCard } from "../redux/reducers/postReducers";
 
 const LIMIT = 5;
 
 export const AllPostList = () => {
-  const [post, setPost] = useState<IPostCard[]>([]);
+  const posts = useSelector((state: IState) => state.postReducers.posts);
+
+  const dispatch = useDispatch();
+
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {
@@ -15,17 +22,17 @@ export const AllPostList = () => {
     )
       .then((response) => response.json())
       .then((result: any) => {
-        setPost([...post, ...result.results]);
+        dispatch(addPosts(result.results));
       });
   }, [offset]);
 
   const loadMore = useCallback(() => {
-    setOffset(post.length);
-  }, [post]);
+    setOffset(posts.length);
+  }, [posts]);
 
   return (
     <div className={styles.postList}>
-      {post.map((item: IPostCard) => {
+      {posts.map((item: IPostCard) => {
         return (
           <Post
             id={item.id}

@@ -78,15 +78,15 @@
   color: #254050;
 }
 
-.login__description p a {
+.login__description a {
   font-style: normal;
   font-weight: bold;
   font-size: 25px;
   line-height: 134%;
   letter-spacing: 0.03em;
   color: #016efc;
+  text-decoration: none;
 }
 
-. .login__description a {
-  text-decoration: none;
+.login__description a {
 }
